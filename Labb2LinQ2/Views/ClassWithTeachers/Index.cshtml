@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    //Definiera ny Layout
+    Layout = "_Layout2";
+}
+@* Classes *@
+<div class="row">
+    <div class="col-md-3">
+        <ul id="classList" style="list-style-type: none;">
+            <h3 style="border: 1px solid black; padding: 5px; width: 200px; text-align: center; color: black;">Classes</h3>
+            @foreach (var clas in Model.Classes)
+            {
+                <li style="margin-bottom: 5px;">
+                    <a href="#" class=" btn btn-primary classLink" style="width: 200px;" data-class="@clas.ClassName">@clas.ClassName</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <table style="color: black" class="table" id="classDetails">
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            @functions {
+                // Method to sort Class by name
+                IEnumerable<ClassWithTeachers> SortClassByName(IEnumerable<ClassWithTeachers> classes)
+                {
+                    return classes.OrderBy(c => c.ClassName);
+                }
+            }
+
+            <tbody>
+                <h1 style="text-align: center; border: 1px solid black; width: 220px; margin: 0 auto; color: black; text-align: center;">Full list</h1>
+                <p style="color: black; text-align: center;">for detailed list choose a class to the left</p>
+                @foreach (var clas in SortClassByName(Model.Classes))
+                {
+                    <tr style="color: black" class="classRow" data-clas="@clas.ClassName">
+                        <td>@clas.ClassName</td>
+                        <td>@clas.TeacherName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Sort the class list alphabetically
+            var classListItems = $("#classList li").get();
+            classListItems.sort(function (a, b) {
+                var textA = $(a).text().toUpperCase();
+                var textB = $(b).text().toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+            $.each(classListItems, function (index, item) {
+                $("#classList").append(item);
+            });
+
+            // Show class details when clicked
+            $(".classLink").click(function (e) {
+                e.preventDefault();
+                var className = $(this).data("class");
+                $(".classRow").hide();
+                $(".classRow[data-clas='" + className + "']").show();s
+            });
+        });
+    </script>
+}

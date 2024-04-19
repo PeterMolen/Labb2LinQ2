@@ -1,0 +1,21 @@
+﻿@model IEnumerable<dynamic>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Teacher Names</th>
+            <th>Class Name</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentName</td>
+                <td>@item.TeacherNames</td>
+                <td>@item.ClassName</td>
+            </tr>
+        }
+    </tbody>
+</table>

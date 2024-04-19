@@ -1,0 +1,45 @@
+﻿@model Labb2LinQ2.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Enrollment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Grade" class="control-label"></label>
+                <input asp-for="Grade" class="form-control" />
+                <span asp-validation-for="Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkClassId" class="control-label">Class Name</label>
+                <select asp-for="FkClassId" class ="form-control" asp-items="ViewBag.FkClassId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkStudentId" class="control-label">Student Name</label>
+                <select asp-for="FkStudentId" class ="form-control" asp-items="ViewBag.FkStudentId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkTeacherId" class="control-label">Teacher Name</label>
+                <select asp-for="FkTeacherId" class ="form-control" asp-items="ViewBag.FkTeacherId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
